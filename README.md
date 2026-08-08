@@ -37,3 +37,21 @@ Open [http://localhost:3000](http://localhost:3000)
 ## Tech Stack
 
 Next.js 15 · Tailwind CSS · Framer Motion · OpenAI · Cloudinary
+
+## Deploy on Render
+
+1. Create a **Web Service** (not Static Site) on [Render](https://render.com)
+2. Connect your GitHub repo
+3. Use these settings:
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command:** `npm start`
+   - **Node version:** 20+
+4. Add environment variables in Render dashboard:
+   - `OPENAI_API_KEY`
+   - `CLOUDINARY_CLOUD_NAME`
+   - `CLOUDINARY_API_KEY`
+   - `CLOUDINARY_API_SECRET`
+
+Or use the included `render.yaml` blueprint for one-click setup.
+
+> **Important:** This app must be deployed as a **Web Service** because it uses Next.js API routes (`/api/transform`). A Static Site will show a blank page.

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useMotionReady } from "@/lib/motion";
 import { PROMPT_SUGGESTIONS } from "@/lib/types";
 
 interface PromptInputProps {
@@ -16,6 +17,7 @@ export default function PromptInput({
   onSubmit,
   onBack,
 }: PromptInputProps) {
+  const motionReady = useMotionReady();
   const [prompt, setPrompt] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,7 +28,7 @@ export default function PromptInput({
   return (
     <motion.div
       className="screen-shell screen-shell-scroll"
-      initial={{ opacity: 0, x: 40 }}
+      initial={motionReady ? { opacity: 0, x: 40 } : false}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -40 }}
     >

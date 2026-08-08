@@ -1,22 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMotionReady } from "@/lib/motion";
 
 interface SplashScreenProps {
   onStart: () => void;
 }
 
 export default function SplashScreen({ onStart }: SplashScreenProps) {
+  const motionReady = useMotionReady();
+
   return (
     <motion.div
       className="screen-shell relative items-center justify-center px-5 text-center"
-      initial={{ opacity: 0 }}
+      initial={motionReady ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
     >
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={motionReady ? { scale: 0.8 } : false}
+        animate={{ scale: 1 }}
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
         className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-purple-600 shadow-2xl shadow-pink-500/30 sm:mb-8 sm:h-28 sm:w-28"
       >
@@ -25,8 +28,8 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
 
       <motion.h1
         className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-6xl"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={motionReady ? { y: 20 } : false}
+        animate={{ y: 0 }}
         transition={{ delay: 0.4 }}
       >
         PhotoBooth AI
@@ -34,8 +37,8 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
 
       <motion.p
         className="mt-3 max-w-xs text-base leading-relaxed text-white/60 sm:mt-4 sm:max-w-sm sm:text-lg"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={motionReady ? { y: 20 } : false}
+        animate={{ y: 0 }}
         transition={{ delay: 0.55 }}
       >
         Snap a selfie, describe your dream look, and watch AI transform you in
@@ -44,8 +47,8 @@ export default function SplashScreen({ onStart }: SplashScreenProps) {
 
       <motion.div
         className="mt-8 flex w-full max-w-sm flex-col items-center gap-4 sm:mt-10"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={motionReady ? { y: 20 } : false}
+        animate={{ y: 0 }}
         transition={{ delay: 0.7 }}
       >
         <button

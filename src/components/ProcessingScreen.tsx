@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMotionReady } from "@/lib/motion";
 
 const STEPS = [
   "Analyzing your selfie...",
@@ -14,10 +15,12 @@ interface ProcessingScreenProps {
 }
 
 export default function ProcessingScreen({ prompt }: ProcessingScreenProps) {
+  const motionReady = useMotionReady();
+
   return (
     <motion.div
       className="screen-shell items-center justify-center px-5 text-center"
-      initial={{ opacity: 0 }}
+      initial={motionReady ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >

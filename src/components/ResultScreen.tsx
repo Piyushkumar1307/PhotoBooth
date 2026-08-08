@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useMotionReady } from "@/lib/motion";
 
 interface ResultScreenProps {
   imageUrl: string;
@@ -9,6 +10,8 @@ interface ResultScreenProps {
 }
 
 export default function ResultScreen({ imageUrl, onRestart }: ResultScreenProps) {
+  const motionReady = useMotionReady();
+
   const handleDownload = async () => {
     try {
       const res = await fetch(imageUrl);
@@ -69,13 +72,13 @@ export default function ResultScreen({ imageUrl, onRestart }: ResultScreenProps)
   return (
     <motion.div
       className="screen-shell screen-shell-scroll items-center justify-start py-2 sm:justify-center"
-      initial={{ opacity: 0, scale: 0.98 }}
+      initial={motionReady ? { opacity: 0, scale: 0.98 } : false}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
-        initial={{ y: 16, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={motionReady ? { y: 16 } : false}
+        animate={{ y: 0 }}
         transition={{ delay: 0.15 }}
         className="mb-4 shrink-0 text-center sm:mb-6"
       >
@@ -86,8 +89,8 @@ export default function ResultScreen({ imageUrl, onRestart }: ResultScreenProps)
       </motion.div>
 
       <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={motionReady ? { scale: 0.95 } : false}
+        animate={{ scale: 1 }}
         transition={{ delay: 0.25, type: "spring" }}
         className="relative aspect-square w-full max-w-[min(100%,400px)] shrink-0 overflow-hidden rounded-3xl border-2 border-white/10 shadow-2xl shadow-purple-500/20"
       >
@@ -103,8 +106,8 @@ export default function ResultScreen({ imageUrl, onRestart }: ResultScreenProps)
 
       <motion.div
         className="mt-5 flex w-full max-w-[min(100%,400px)] shrink-0 flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center"
-        initial={{ y: 16, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={motionReady ? { y: 16 } : false}
+        animate={{ y: 0 }}
         transition={{ delay: 0.4 }}
       >
         <button

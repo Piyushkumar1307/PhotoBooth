@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useMotionReady } from "@/lib/motion";
 
 interface SelfieCaptureProps {
   onCapture: (dataUrl: string) => void;
@@ -9,6 +10,7 @@ interface SelfieCaptureProps {
 }
 
 export default function SelfieCapture({ onCapture, onBack }: SelfieCaptureProps) {
+  const motionReady = useMotionReady();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -106,7 +108,7 @@ export default function SelfieCapture({ onCapture, onBack }: SelfieCaptureProps)
   return (
     <motion.div
       className="screen-shell"
-      initial={{ opacity: 0, x: 40 }}
+      initial={motionReady ? { opacity: 0, x: 40 } : false}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -40 }}
     >
